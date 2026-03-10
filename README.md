@@ -1,6 +1,26 @@
 ## Personal Finance Dashboard
 A modern personal finance dashboard built with Next.js that allows users to upload, track transactions, and gain financial insights in a clean and responsive interface.
 
+## Current Features
+- Credit Card Statement Upload
+- Transaction Summaries
+- Secure Authentication
+- Responsive Design
+- Interactive Dashboard
+
+## Future Additions
+- Budget Management
+  - Create and track monthly budgets
+  - Set spending limits by category
+- AI-Powered Financial Assistant
+  - Natural language chatbot for financial queries
+  - RAG (Retrieval-Augmented Generation) for personalized insights
+  - AI agents for automated financial analysis and recommendations
+  - Spending pattern recognition and anomaly detection
+
+### Backend
+In a private repo for now
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
