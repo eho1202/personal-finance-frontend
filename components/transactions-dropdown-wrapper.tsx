@@ -22,7 +22,7 @@ const TransactionsDropdownWrapper = ({ selectedMonth, selectedYear }: DashboardF
         router.push(`/dashboard?month=${savedMonth}&year=${savedYear}`)
       }
     }
-  })
+  },[])
 
   useEffect(() => {
     // Only save to cookies after initial load to avoid overwriting with defaults

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { IconUpload } from "@tabler/icons-react";
+import { IconUpload, IconX } from "@tabler/icons-react";
 import { MIME_TYPES } from "@/constants";
 
 export default function FileUpload({
@@ -19,9 +19,9 @@ export default function FileUpload({
       const allowedMimes = allowedTypes.map((type) => MIME_TYPES[type]).filter(Boolean);
 
       if (!allowedMimes.includes(file.type)) {
-      setError(`File type not allowed. Allowed: ${allowedTypes.map((t) => `.${t}`).join(", ")}`)
-      return
-    }
+        setError(`File type not allowed. Allowed: ${allowedTypes.map((t) => `.${t}`).join(", ")}`)
+        return
+      }
 
       if (file.size > maxSize * 1024 * 1024) {
         setError(`File too large. Maximum: ${maxSize}MB`);
@@ -69,7 +69,7 @@ export default function FileUpload({
   return (
     <div className="space-y-1.5">
       <div
-        className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
+        className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors min-h-[150px] flex flex-col items-center justify-center
           ${isDragging
             ? "border-primary bg-primary/5"
             : "border-muted hover:border-primary/50"
@@ -91,7 +91,19 @@ export default function FileUpload({
             }`}
         />
         {selectedFile ? (
-          <p className="text-sm font-medium">{selectedFile.name}</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-sm font-medium">{selectedFile.name}</p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedFile(null);
+                onFileSelect(null as any);
+              }}
+              className="text-muted-foreground hover:text-red-500 transition-colors"
+            >
+              <IconX className="w-4 h-4" />
+            </button>
+          </div>
         ) : (
           <p className="text-sm text-muted-foreground">
             {isDragging ? (

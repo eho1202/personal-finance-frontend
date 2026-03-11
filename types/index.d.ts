@@ -1,3 +1,9 @@
+declare type UserInfoProps = {
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 declare type TransactionParams = {
   trans_date: Date;
   description: string;
@@ -71,7 +77,7 @@ declare interface ETLResult {
 }
 
 declare interface FileUploadProps {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File | null) => void;
   allowedTypes?: string[];
   maxSize?: number; // in MB
   bucket?: string;

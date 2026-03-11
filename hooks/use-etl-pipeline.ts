@@ -1,8 +1,11 @@
-import { fetchETL } from "@/api/api";
+import { uploadStatement } from "@/api/client-api";
 import { INITIAL_STEPS, STEP_EVENT_MAP } from "@/constants";
+import { setClientCookieValue } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function useETLPipeline() {
+  const router = useRouter();
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState<ETLResult | null>(null);
   const [globalError, setGlobalError] = useState<string | null>(null);
@@ -10,12 +13,12 @@ export function useETLPipeline() {
 
   const updateStep = (index: number, status: StepStatus, detail?: string) => {
     setSteps((prev) =>
-      prev.map((step, i) => (i === index ? { ...step, status, detail } : step))
+      prev.map((step, i) => (i === index ? { ...step, status, detail } : step)),
     );
   };
 
   const resetSteps = () => {
-    setSteps(INITIAL_STEPS);
+    setSteps(INITIAL_STEPS.map((s) => ({ ...s })));
     setResult(null);
     setGlobalError(null);
   };
@@ -28,8 +31,7 @@ export function useETLPipeline() {
     formData.append("file", file);
 
     try {
-
-      const res = await fetchETL(formData);
+      const res = await uploadStatement(formData);
 
       // Read SSE stream
       const reader = res.body?.getReader();
@@ -56,6 +58,13 @@ export function useETLPipeline() {
 
             if (currentEvent === "done") {
               setResult(data.result);
+
+              const [month, year] = file.name.replace(".pdf", "").split("_");
+              const maxAge = 3 * 24 * 60 * 60;
+              setClientCookieValue("selectedMonth", month, maxAge);
+              setClientCookieValue("selectedYear", year, maxAge);
+              router.push(`?month=${month}&year=${year}`)
+              router.refresh()
             } else if (currentEvent === "error") {
               setGlobalError(data.message);
             } else if (stepIndex !== undefined) {
@@ -71,7 +80,9 @@ export function useETLPipeline() {
     }
   };
 
-  const allSuccess = steps.every((s) => s.status === "success");
+  const allSuccess =
+    steps.every((s) => s.status === "success") &&
+    steps.some((s) => s.status === "success");
 
   return {
     steps,
