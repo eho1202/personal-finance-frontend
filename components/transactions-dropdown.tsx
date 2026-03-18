@@ -2,9 +2,11 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { IconChevronDown } from '@tabler/icons-react'
-import { MONTHS, YEARS } from '@/constants'
 
-const TransactionsDropdown = ({ selectedMonth, selectedYear, onMonthChange, onYearChange }: TransactionsDropdownProps) => {
+const TransactionsDropdown = ({ selectedMonth, selectedYear, availableMonths, onMonthChange, onYearChange }: TransactionsDropdownProps) => {
+    const monthsForYear = availableMonths[selectedYear] ?? []
+    const availableYears = Object.keys(availableMonths).map(Number)
+
     return (
         <div className="flex items-center gap-2 px-4 lg:px-6">
             <DropdownMenu>
@@ -15,7 +17,7 @@ const TransactionsDropdown = ({ selectedMonth, selectedYear, onMonthChange, onYe
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="start">
-                    {Object.values(MONTHS).map((month) => (
+                    {monthsForYear.map((month) => (
                         <DropdownMenuItem
                             key={month}
                             onClick={() => onMonthChange(month)}
@@ -35,7 +37,7 @@ const TransactionsDropdown = ({ selectedMonth, selectedYear, onMonthChange, onYe
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-24" align="start">
-                    {Object.values(YEARS).map((year) => (
+                    {availableYears.map((year) => (
                         <DropdownMenuItem
                             key={year}
                             onClick={() => onYearChange(year)}

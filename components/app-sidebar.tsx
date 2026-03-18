@@ -4,7 +4,6 @@ import * as React from "react"
 import {
   IconCalculator,
   IconCamera,
-  IconChartBar,
   IconDashboard,
   IconDatabase,
   IconFileAi,
@@ -12,6 +11,7 @@ import {
   IconFileWord,
   IconFolder,
   IconHelp,
+  IconMessageChatbot,
   IconPigMoney,
   IconReport,
   IconSearch,
@@ -46,11 +46,11 @@ const data = {
       url: "/budget",
       icon: IconCalculator,
     },
-    // {
-    //   title: "Analytics",
-    //   url: "#",
-    //   icon: IconChartBar,
-    // },
+    {
+      title: "Chatbot Analytics",
+      url: "/chatbot",
+      icon: IconMessageChatbot,
+    },
     // {
     //   title: "Projects",
     //   url: "#",

@@ -46,7 +46,7 @@ export function TransactionsTable<TData, TValue>({
         <Card>
             <CardHeader>
                 <CardTitle className="text-base font-semibold tracking-tight">
-                    Transactions
+                    Transactions Summary
                 </CardTitle>
                 <CardDescription>
                     Transactions from this month

@@ -2,13 +2,15 @@
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef } from 'react'
 import TransactionsDropdown from './transactions-dropdown'
-import { getClientCookieValue, setClientCookieValue } from '@/lib/utils'
+import { getAvailableMonths, getClientCookieValue, setClientCookieValue } from '@/lib/utils'
 
 const EXPIRY_DAYS = 3
 
 const TransactionsDropdownWrapper = ({ selectedMonth, selectedYear }: DashboardFiltersProps) => {
   const router = useRouter()
   const hasInitialized = useRef(false)
+
+  const availableMonths = getAvailableMonths();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -40,6 +42,7 @@ const TransactionsDropdownWrapper = ({ selectedMonth, selectedYear }: DashboardF
     <TransactionsDropdown
       selectedMonth={selectedMonth}
       selectedYear={selectedYear}
+      availableMonths={availableMonths}
       onMonthChange={(month) => router.push(`/dashboard?month=${month}&year=${selectedYear}`)}
       onYearChange={(year) => router.push(`/dashboard?month=${selectedMonth}&year=${year}`)}
     />

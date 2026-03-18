@@ -87,6 +87,7 @@ declare interface FileUploadProps {
 declare interface TransactionsDropdownProps {
   selectedMonth: string;
   selectedYear: number;
+  availableMonths: Record<number, string[]>;
   onMonthChange: (month: string) => void;
   onYearChange: (year: number) => void;
 }

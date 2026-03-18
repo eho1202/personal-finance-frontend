@@ -4,8 +4,13 @@ export const getTransactionData = async (
   month: string,
   year: number,
 ): Promise<TransactionParams[]> => {
-  const data = await getTransactions(month, year);
-  return data;
+  try {
+    const data = await getTransactions(month, year);
+    return data;
+  } catch (err) {
+    console.error("getTransactionData error:", err);
+    return [];
+  }
 };
 
 export const getMonthlySummaryData = async (

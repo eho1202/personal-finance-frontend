@@ -1,3 +1,4 @@
+import { MONTHS } from "@/constants";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import z from "zod";
@@ -51,5 +52,22 @@ export const authFormSchema = (type: string) => z.object({
   })
 }).refine(
   (data) => type ==="sign-in" || data.password === data.confirmPassword,
-  { message: "Password don't match", path: ["confirmPassword"] }
+  { message: "Passwords don't match", path: ["confirmPassword"] }
 )
+
+export const getAvailableMonths = () => {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const currentMonthIndex = now.getMonth()
+
+  const startYear = 2025
+  const result: Record<number, string[]> = {}
+
+  for (let year = startYear; year <= currentYear; year++) {
+    const lastMonthIndex = year === currentYear ? currentMonthIndex : 11
+    result[year] = Object.entries(MONTHS)
+      .filter(([index]) => Number(index) <= lastMonthIndex)
+      .map(([, name]) => name)
+  }
+  return result;
+}

@@ -4,7 +4,7 @@ import { setClientCookieValue } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function useETLPipeline() {
+export function useETLPipeline({ onSuccess }: { onSuccess?: () => void } = {}) {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState<ETLResult | null>(null);
@@ -64,7 +64,7 @@ export function useETLPipeline() {
               setClientCookieValue("selectedMonth", month, maxAge);
               setClientCookieValue("selectedYear", year, maxAge);
               router.push(`?month=${month}&year=${year}`)
-              router.refresh()
+              onSuccess?.()
             } else if (currentEvent === "error") {
               setGlobalError(data.message);
             } else if (stepIndex !== undefined) {
