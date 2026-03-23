@@ -1,6 +1,6 @@
 'use client'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
-import { Button } from './ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { Button } from '../ui/button'
 import { IconChevronDown } from '@tabler/icons-react'
 
 const TransactionsDropdown = ({ selectedMonth, selectedYear, availableMonths, onMonthChange, onYearChange }: TransactionsDropdownProps) => {

@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Badge } from "./ui/badge"
+import { Badge } from "../ui/badge"
 import { transactionCategoryStyles } from "@/constants"
 import { cn, FormatNumber } from "@/lib/utils"
 

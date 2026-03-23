@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconAlertTriangle } from "@tabler/icons-react";
-import ETLUpload from './etl-upload';
+import ETLUpload from '@/components/etl-upload';
 
 const NotFoundCard = ({ month, year }: NotFoundCardProps) => {
     return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TAILWIND_COLORS, transactionCategoryStyles } from "@/constants";
+import { transactionCategoryStyles } from "@/constants";
 import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,7 +11,8 @@ import {
   ChartData,
   TooltipItem,
 } from "chart.js";
-import { FormatNumber } from "@/lib/utils";
+import { FormatNumber, getHexColor } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,19 +23,9 @@ const getCategoryStyle = (category: string) => {
   );
 };
 
-const getHexColor = (bgClass: string, isDark: boolean = false): string => {
-  const classes = bgClass.split(" ")
-
-  if (isDark) {
-    const darkClass = classes.find((c) => c.startsWith("dark:"))?.replace("dark:", "")
-    if (darkClass) return TAILWIND_COLORS[darkClass] ?? "#9ca3af"
-  }
-
-  const lightClass = classes.find((c) => !c.startsWith("dark:"))
-  return TAILWIND_COLORS[lightClass ?? ""] ?? "#9ca3af"
-}
-
 export default function TransactionsSummary({ data, month, year }: TransactionsSummaryProps) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   // Sort by total_amount descending for top 3
   const sorted = [...data].sort((a, b) => b.total_amount - a.total_amount);
@@ -49,7 +40,7 @@ export default function TransactionsSummary({ data, month, year }: TransactionsS
       {
         data: data.map((d) => d.transaction_count),
         backgroundColor: data.map(
-          (d) => getHexColor(getCategoryStyle(d.category).backgroundColor)
+          (d) => getHexColor(getCategoryStyle(d.category).backgroundColor, isDark)
         ),
         borderColor: "transparent",
         borderWidth: 0,

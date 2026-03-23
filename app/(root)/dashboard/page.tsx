@@ -2,14 +2,14 @@
 
 import { getTransactionData } from '@/lib/actions/transaction.actions'
 import { Suspense } from 'react'
-import { SectionCardsSkeleton } from '@/components/section-card-skeleton'
-import { SectionCardsWrapper } from '@/components/section-card-wrapper'
-import NotFoundCard from '@/components/not-found-card'
-import TransactionsDropdownWrapper from "@/components/transactions-dropdown-wrapper"
-import TransactionsTableWrapper from "@/components/transactions-table-wrapper"
-import TransactionsSummaryWrapper from "@/components/transactions-summary-wrapper"
-import { TransactionsSummarySkeleton } from '@/components/transactions-summary-skeleton'
-import { TransactionsTableSkeleton } from '@/components/transactions-table-skeleton'
+import { SectionCardsSkeleton } from '@/components/dashboard/section-card-skeleton'
+import { SectionCardsWrapper } from '@/components/dashboard/section-card-wrapper'
+import NotFoundCard from '@/components/dashboard/not-found-card'
+import TransactionsDropdownWrapper from "@/components/dashboard/transactions-dropdown-wrapper"
+import TransactionsTableWrapper from "@/components/dashboard/transactions-table-wrapper"
+import TransactionsSummaryWrapper from "@/components/dashboard/transactions-summary-wrapper"
+import { TransactionsSummarySkeleton } from '@/components/dashboard/transactions-summary-skeleton'
+import { TransactionsTableSkeleton } from '@/components/dashboard/transactions-table-skeleton'
 import { MONTHS } from '@/constants'
 import { getServerCookieValue } from '@/lib/utils'
 

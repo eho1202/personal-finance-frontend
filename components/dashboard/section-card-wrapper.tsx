@@ -2,9 +2,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { SectionCards } from "@/components/section-cards"
+import { SectionCards } from "@/components/dashboard/section-cards"
 import { getGPTSummaryData } from "@/lib/actions/transaction.actions"
-import { SectionCardsSkeleton } from './section-card-skeleton';
+import { SectionCardsSkeleton } from '@/components/dashboard/section-card-skeleton';
 
 export function SectionCardsWrapper({ month, year }: { month: string; year: number }) {
   const [gpt_summary, setGptSummary] = useState<GPTSummaryParams | null>(null)

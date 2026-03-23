@@ -1,33 +1,33 @@
-export const TAILWIND_COLORS: Record<string, string> = {
-  // Light
-  "bg-pink-500":    "#ec4899",
-  "bg-green-500":   "#22c55e",
-  "bg-yellow-500":  "#eab308",
-  "bg-blue-500":    "#3b82f6",
-  "bg-violet-500":  "#8b5cf6",
-  "bg-orange-500":  "#f97316",
-  "bg-purple-500":  "#a855f7",
-  "bg-red-500":     "#ef4444",
-  "bg-fuchsia-500": "#d946ef",
-  "bg-teal-500":    "#14b8a6",
-  "bg-cyan-500":    "#06b6d4",
-  "bg-gray-500":    "#6b7280",
-  "bg-gray-400":    "#9ca3af",
-  // Dark
-  "bg-pink-400":    "#f472b6",
-  "bg-green-400":   "#4ade80",
-  "bg-yellow-400":  "#facc15",
-  "bg-blue-400":    "#60a5fa",
-  "bg-violet-400":  "#a78bfa",
-  "bg-orange-400":  "#fb923c",
-  "bg-purple-400":  "#c084fc",
-  "bg-red-400":     "#f87171",
-  "bg-fuchsia-400": "#e879f9",
-  "bg-teal-400":    "#2dd4bf",
-  "bg-cyan-400":    "#22d3ee",
-  "bg-gray-600":    "#4b5563",
-  "bg-gray-500 dark:bg-gray-400": "#9ca3af",
-};
+export const TAILWIND_COLORS: Record<string, { light: string; dark: string }> =
+  {
+    "bg-pink-500 dark:bg-pink-400": { light: "#ec4899", dark: "#e879f9" },
+    "bg-green-500 dark:bg-green-400": { light: "#22c55e", dark: "#34d399" },
+    "bg-yellow-500 dark:bg-yellow-400": { light: "#eab308", dark: "#fbbf24" },
+    "bg-blue-500 dark:bg-blue-400": { light: "#3b82f6", dark: "#60a5fa" },
+    "bg-violet-500 dark:bg-violet-400": { light: "#8b5cf6", dark: "#a78bfa" },
+    "bg-orange-500 dark:bg-orange-400": { light: "#f97316", dark: "#fb923c" },
+    "bg-purple-500 dark:bg-purple-400": { light: "#a855f7", dark: "#c084fc" },
+    "bg-red-500 dark:bg-red-400": { light: "#ef4444", dark: "#f87171" },
+    "bg-fuchsia-500 dark:bg-fuchsia-400": { light: "#d946ef", dark: "#e879f9" },
+    "bg-teal-500 dark:bg-teal-400": { light: "#14b8a6", dark: "#2dd4bf" },
+    "bg-cyan-500 dark:bg-cyan-400": { light: "#06b6d4", dark: "#22d3ee" },
+    "bg-gray-500 dark:bg-gray-400": { light: "#6b7280", dark: "#9ca3af" },
+  };
+
+export const PALETTE_KEYS = [
+  "bg-pink-500 dark:bg-pink-400",
+  "bg-blue-500 dark:bg-blue-400",
+  "bg-green-500 dark:bg-green-400",
+  "bg-yellow-500 dark:bg-yellow-400",
+  "bg-violet-500 dark:bg-violet-400",
+  "bg-orange-500 dark:bg-orange-400",
+  "bg-teal-500 dark:bg-teal-400",
+  "bg-purple-500 dark:bg-purple-400",
+  "bg-red-500 dark:bg-red-400",
+  "bg-fuchsia-500 dark:bg-fuchsia-400",
+  "bg-cyan-500 dark:bg-cyan-400",
+  "bg-gray-500 dark:bg-gray-400",
+];
 
 export const transactionCategoryStyles = {
   "Food and Drink": {
@@ -111,9 +111,21 @@ export const transactionCategoryStyles = {
 };
 
 export const INITIAL_STEPS: ETLStep[] = [
-  { label: "Extract",   description: "Parsing PDF and uploading to storage",    status: "idle" },
-  { label: "Transform", description: "Normalizing and classifying transactions", status: "idle" },
-  { label: "Load",      description: "Saving transactions to database",          status: "idle" },
+  {
+    label: "Extract",
+    description: "Parsing PDF and uploading to storage",
+    status: "idle",
+  },
+  {
+    label: "Transform",
+    description: "Normalizing and classifying transactions",
+    status: "idle",
+  },
+  {
+    label: "Load",
+    description: "Saving transactions to database",
+    status: "idle",
+  },
 ];
 
 export const STEP_EVENT_MAP: Record<string, number> = {
@@ -123,17 +135,17 @@ export const STEP_EVENT_MAP: Record<string, number> = {
 };
 
 export const MIME_TYPES: Record<string, string> = {
-  pdf:  "application/pdf",
-  csv:  "text/csv",
+  pdf: "application/pdf",
+  csv: "text/csv",
   xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-}
+};
 
 export const PAGE_TITLES: Record<string, string> = {
   "/dashboard": "Dashboard",
   "/budget": "Budget",
   "/analytics": "Analytics",
   "/settings": "Settings",
-}
+};
 
 export const MONTHS: Record<number, string> = {
   0: "January",
@@ -147,10 +159,44 @@ export const MONTHS: Record<number, string> = {
   8: "September",
   9: "October",
   10: "November",
-  11: "December"
-}
+  11: "December",
+};
 
-export const YEARS = [
-  2025,
-  2026
+export const EXPENSE_CATEGORIES = [
+  "Entertainment",
+  "Food and Drink",
+  "Groceries",
+  "Healthcare",
+  "Installment Plan",
+  "Payments",
+  "Personal Care",
+  "Pets",
+  "Shopping",
+  "Subscription",
+  "Transportation",
+  "Travel",
+  "Other",
+];
+
+export const CURRENCIES: string[] = [
+    "CAD",
+    "USD",
+    "EUR",
+    "GBP",
+    "JPY",
+    "CNY",
+    "AUD",
+    "CHF",
+    "INR",
+    "MXN",
+    "BRL",
+    "KRW",
+    "SGD",
+    "HKD",
+    "NOK",
+    "SEK",
+    "DKK",
+    "NZD",
+    "ZAR",
+    "AED",
 ]

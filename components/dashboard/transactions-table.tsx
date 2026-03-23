@@ -19,14 +19,20 @@ import {
 } from "@/components/ui/table"
 import { TransactionsPagination } from "./transactions-pagination"
 import { useState } from "react"
-import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "./ui/card"
-import { Button } from "./ui/button"
+import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "../ui/card"
+import { Button } from "../ui/button"
 import { IconDownload } from "@tabler/icons-react"
+import * as XLSX from "xlsx"
 
 export function TransactionsTable<TData, TValue>({
     columns,
     data,
-}: DataTableProps<TData, TValue>) {
+    month,
+    year,
+}: DataTableProps<TData, TValue> & {
+    month: string;
+    year: number;
+}) {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
@@ -42,6 +48,24 @@ export function TransactionsTable<TData, TValue>({
         }
     })
 
+    const downloadTransactions = () => {
+        const rows = table.getFilteredRowModel().rows
+
+        const data = rows.map((row) =>
+            row.getVisibleCells().reduce((acc, cell) => {
+                const header = cell.column.columnDef.header
+                const key = typeof header === "string" ? header : cell.column.id
+                acc[key] = cell.getValue()
+                return acc
+            }, {} as Record<string, unknown>)
+        )
+
+        const worksheet = XLSX.utils.json_to_sheet(data)
+        const workbook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Transactions")
+        XLSX.writeFile(workbook, `${month}_${year}_Transactions.xlsx`)
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -52,7 +76,7 @@ export function TransactionsTable<TData, TValue>({
                     Transactions from this month
                 </CardDescription>
                 <CardAction>
-                    <Button variant="outline" size="sm" disabled>
+                    <Button variant="outline" size="sm" onClick={downloadTransactions}>
                         <IconDownload />
                         <span className="hidden lg:inline">Download Transactions</span>
                     </Button>

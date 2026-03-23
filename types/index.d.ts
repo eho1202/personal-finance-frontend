@@ -120,3 +120,67 @@ declare interface TransactionsPaginationProps<TData> {
     table: Table<TData>
     pagination: PaginationState
 }
+
+declare interface IncomeItem {
+  id: string;
+  description: string;
+  expected: number;
+  actual: number;
+}
+
+declare interface BillItem {
+  id: string;
+  description: string;
+  dueDate: string;
+  budget: number;
+  actual: number;
+  paid: boolean;
+}
+
+declare interface DebtItem {
+  id: string;
+  description: string;
+  dueDate: string;
+  budget: number;
+  paid: number;
+}
+
+declare interface SavingsItem {
+  id: string;
+  description: string;
+  budget: number;
+  actual: number;
+}
+
+declare interface ExpenseItem {
+  id: string;
+  date: string;
+  amount: number;
+  description: string;
+  category: string;
+}
+
+declare interface ExpenseBudgetsItem {
+  id: string;
+  category: string;
+  budget: number;
+  actual: number;
+  remaining: number;
+}
+
+declare interface BudgetData {
+  currency: string;
+  startDate: string;
+  endDate: string;
+  expenseBudgets: ExpenseBudgetsItem[];
+  expenseItems: Record<string, number>,
+  income: IncomeItem[];
+  bills: BillItem[];
+  debts: DebtItem[];
+  savings: SavingsItem[];
+  expenses: ExpenseItem[];
+}
+
+declare interface BudgetDashboardProps {
+  initialData: BudgetData;
+}

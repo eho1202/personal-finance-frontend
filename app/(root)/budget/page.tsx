@@ -1,9 +1,15 @@
-import React from 'react'
+import { BudgetDashboard } from "@/components/budget/budget-dashboard";
+import { SEED_DATA } from "./seed";
 
-const Budget = () => {
+
+export default function BudgetPage() {
   return (
-    <div>Budget</div>
+    <div className="flex flex-1 flex-col">
+      <div className="@container/main flex flex-1 flex-col gap-2">
+        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+          <BudgetDashboard initialData={SEED_DATA} />
+        </div>
+      </div>
+    </div>
   )
 }
-
-export default Budget

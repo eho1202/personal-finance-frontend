@@ -6,7 +6,7 @@ const TransactionsTableWrapper = async ({ month, year }: TransactionsTableWrappe
     const transactions = await getTransactionData(month, year)
 
     return (
-        <TransactionsTable columns={columns} data={transactions} />
+        <TransactionsTable columns={columns} data={transactions} month={month} year={year} />
     )
 }
 
