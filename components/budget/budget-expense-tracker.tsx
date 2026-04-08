@@ -1,5 +1,6 @@
-import React from 'react'
-import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
+import { useState } from 'react'
+import { Button } from "../ui/button"
+import { Card, CardDescription, CardHeader, CardTitle, CardAction } from '../ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 import { Cell, Pie, PieChart } from 'recharts';
 import ExpenseTrackerTable from './expense-tracker-table';
@@ -7,6 +8,7 @@ import SpendingBreakdownTable from './spending-breakdown-table';
 import { PALETTE_KEYS } from '@/constants';
 import { getHexColor } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { Check, Edit } from 'lucide-react';
 
 const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
     {
@@ -15,6 +17,8 @@ const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
         onChange: (partial: Partial<BudgetData>) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
+    const [isEditing, setIsEditing] = useState(false);
+
     const categoryTotals: Record<string, number> = {};
     data.expenses.forEach(e => {
         categoryTotals[e.category] = (categoryTotals[e.category] ?? 0) + e.amount;
@@ -39,11 +43,17 @@ const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
         <Card className="w-full">
             <CardHeader className='font-semibold'>
                 <CardTitle>Expenses Overview</CardTitle>
-                <CardDescription>Track your monthly expenses here</CardDescription>
+                <CardDescription>{isEditing ? "Click cells to edit, add or remove rows" : "Track your monthly expenses here"}</CardDescription>
+                <CardAction>
+                    <Button variant="outline" size="sm" onClick={() => setIsEditing(prev => !prev)}>
+                        {isEditing ? <Check /> : <Edit />}
+                        <span className='hidden lg:inline'>{isEditing ? "Done" : "Edit"}</span>
+                    </Button>
+                </CardAction>
             </CardHeader>
             <div className="lg:grid lg:grid-cols-[1fr_500px] gap-4 px-4 items-start">
 
-                <ExpenseTrackerTable data={data} onUpdate={onUpdate} onChange={expenses => onChange({ expenses })} onRemove={onRemove} />
+                <ExpenseTrackerTable data={data} isEditing={isEditing} onUpdate={onUpdate} onChange={expenses => onChange({ expenses })} onRemove={onRemove} />
 
                 <div className="flex flex-col gap-4">
                     <Card>

@@ -6,18 +6,19 @@ import { fmt, uid } from '@/lib/utils';
 import AddRowBtn from './add-row-button';
 import DeleteBtn from './delete-button';
 
-const ExpensesTable = ({ data, expenseTotal, onUpdate, onChange, onRemove }
+const ExpensesTable = ({ data, expenseTotal, isEditing, onUpdate, onChange, onRemove }
     : {
         data: BudgetData;
         expenseTotal: { budget: number, actual: number };
+        isEditing: boolean;
         onUpdate: (section: keyof BudgetData, id: string, changes: Record<string, unknown>) => void;
         onChange: (expenses: ExpenseBudgetsItem[], budgets: Record<string, number>) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
     const updateRow = (id: string, field: keyof ExpenseBudgetsItem, v: string | number) =>
         onChange(
-            data.expenseBudgets.map(e => e.id === id ? { ...e, [field]: v } : e),
-            data.expenseItems
+            data.expense_budgets.map(e => e.id === id ? { ...e, [field]: v } : e),
+            data.expense_items
         );
     return (
         <div className='overflow-hidden rounded-lg border'>
@@ -45,11 +46,11 @@ const ExpensesTable = ({ data, expenseTotal, onUpdate, onChange, onRemove }
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.expenseBudgets.map(e => (
+                    {data.expense_budgets.map(e => (
                         e.remaining = e.budget - e.actual,
                         <TableRow key={e.category}>
                             <TableCell>
-                                <Select value={e.category} onValueChange={(val) => onUpdate("expenseBudgets", e.id, { category: val })}>
+                                <Select value={e.category} onValueChange={(val) => onUpdate("expense_budgets", e.id, { category: val })}>
                                     <SelectTrigger className='w-full max-w-48' size='sm'>
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
@@ -64,10 +65,10 @@ const ExpensesTable = ({ data, expenseTotal, onUpdate, onChange, onRemove }
                                 </Select>
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.budget} type="number" onSave={v => updateRow(e.id, "budget", v)} />
+                                <EditCell value={e.budget} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "budget", v)} />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.actual} type="number" onSave={v => updateRow(e.id, "actual", v)} />
+                                <EditCell value={e.actual} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "actual", v)} />
                             </TableCell>
                             <TableCell
                                 align="right"
@@ -79,7 +80,7 @@ const ExpensesTable = ({ data, expenseTotal, onUpdate, onChange, onRemove }
                                 {fmt(e.remaining)}
                             </TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("expenseBudgets", e.id)} />
+                                <DeleteBtn onClick={() => onRemove("expense_budgets", e.id)} />
                             </TableCell>
                         </TableRow>
                     ))}
@@ -95,8 +96,10 @@ const ExpensesTable = ({ data, expenseTotal, onUpdate, onChange, onRemove }
                 </TableFooter>
             </Table>
             <AddRowBtn onClick={() =>
-                onChange([...data.expenseBudgets, { id: uid(), category: "", budget: 0, actual: 0, remaining: 0 }], data.expenseItems)
-            } />
+                onChange([...data.expense_budgets, { id: uid(), category: "", budget: 0, actual: 0, remaining: 0 }], data.expense_items)
+            }
+                isEditing={isEditing}
+            />
         </div>
     )
 }

@@ -41,7 +41,7 @@ const OverviewCard = ({ data, onChange }
                         Start Date
                     </TableCell>
                     <TableCell className='text-right'>
-                        {data.startDate}
+                        {data.start_date}
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -49,7 +49,7 @@ const OverviewCard = ({ data, onChange }
                         End Date
                     </TableCell>
                     <TableCell className='text-right'>
-                        {data.endDate}
+                        {data.end_date}
                     </TableCell>
                 </TableRow>
             </TableBody>

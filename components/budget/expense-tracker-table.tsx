@@ -7,9 +7,10 @@ import { uid } from '@/lib/utils'
 import EditCell from './budget-edit-cell'
 import DeleteBtn from './delete-button'
 
-const ExpenseTrackerTable = ({ data, onUpdate, onChange, onRemove }
+const ExpenseTrackerTable = ({ data, isEditing, onUpdate, onChange, onRemove }
     : {
         data: BudgetData;
+        isEditing: boolean;
         onUpdate: (section: keyof BudgetData, id: string, changes: Record<string, unknown>) => void;
         onChange: (expenses: ExpenseItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
@@ -44,13 +45,13 @@ const ExpenseTrackerTable = ({ data, onUpdate, onChange, onRemove }
                     {data.expenses.map(e => (
                         <TableRow key={e.id}>
                             <TableCell>
-                                <EditCell value={e.date} type="date" onSave={v => update(e.id, "date", v)} align="left" />
+                                <EditCell value={e.date} type="date" isEditing={isEditing} onSave={v => update(e.id, "date", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.amount} type="number" onSave={v => update(e.id, "amount", v)} align="left" />
+                                <EditCell value={e.amount} type="number" isEditing={isEditing} onSave={v => update(e.id, "amount", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.description} type="text" onSave={v => update(e.id, "description", v)} align="left" />
+                                <EditCell value={e.description} type="text" isEditing={isEditing} onSave={v => update(e.id, "description", v)} align="left" />
                             </TableCell>
                             <TableCell className='flex items-center justify-between gap-2'>
                                 <Select value={e.category} onValueChange={(val) => onUpdate("expenses", e.id, { category: val })}>
@@ -63,6 +64,10 @@ const ExpenseTrackerTable = ({ data, onUpdate, onChange, onRemove }
                                             {EXPENSE_CATEGORIES.map(c => (
                                                 <SelectItem key={c} value={c}>{c}</SelectItem>
                                             ))}
+
+                                            {/* {[...new Set(data.expenses.map(e => e.category))].map(category => (
+                                                <SelectItem key={category} value={category}>{category}</SelectItem>
+                                            ))} */}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -74,7 +79,9 @@ const ExpenseTrackerTable = ({ data, onUpdate, onChange, onRemove }
             </Table>
             <AddRowBtn onClick={() =>
                 onChange([...data.expenses, { id: uid(), date: "", amount: 0, description: "", category: "" }])
-            } />
+            }
+                isEditing={isEditing}
+            />
         </div>
     )
 }

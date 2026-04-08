@@ -5,10 +5,11 @@ import AddRowBtn from './add-row-button';
 import { fmt, uid } from '@/lib/utils';
 import DeleteBtn from './delete-button';
 
-const IncomeTable = ({ data, incomeTotal, onChange, onRemove }
+const IncomeTable = ({ data, incomeTotal, isEditing, onChange, onRemove }
     : {
         data: BudgetData;
         incomeTotal: { expected: number; actual: number };
+        isEditing: boolean;
         onChange: (items: IncomeItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
@@ -33,9 +34,9 @@ const IncomeTable = ({ data, incomeTotal, onChange, onRemove }
                 <TableBody>
                     {data.income.map(i => (
                         <TableRow key={i.id}>
-                            <TableCell><EditCell value={i.description} type="text" onSave={v => update(i.id, "description", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={i.expected} type="number" onSave={v => update(i.id, "expected", v)} /></TableCell>
-                            <TableCell><EditCell value={i.actual} type="number" onSave={v => update(i.id, "actual", v)} /></TableCell>
+                            <TableCell><EditCell value={i.description} type="text" isEditing={isEditing} onSave={v => update(i.id, "description", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={i.expected} type="number" isEditing={isEditing} onSave={v => update(i.id, "expected", v)} /></TableCell>
+                            <TableCell><EditCell value={i.actual} type="number" isEditing={isEditing} onSave={v => update(i.id, "actual", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("income", i.id)} />
                             </TableCell>
@@ -57,7 +58,9 @@ const IncomeTable = ({ data, incomeTotal, onChange, onRemove }
             </Table>
             <AddRowBtn onClick={() =>
                 onChange([...data.income, { id: uid(), description: "", expected: 0, actual: 0 }])
-            } />
+            }
+                isEditing={isEditing}
+            />
         </div >
     )
 }

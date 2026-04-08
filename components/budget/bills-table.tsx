@@ -6,10 +6,11 @@ import { fmt, uid } from '@/lib/utils';
 import AddRowBtn from './add-row-button';
 import DeleteBtn from './delete-button';
 
-const BillsTable = ({ data, billsTotal, onUpdate, onChange, onRemove }
+const BillsTable = ({ data, billsTotal, isEditing, onUpdate, onChange, onRemove }
     : {
         data: BudgetData;
         billsTotal: { budget: number, actual: number };
+        isEditing: boolean;
         onUpdate: (section: keyof BudgetData, id: string, changes: Record<string, unknown>) => void;
         onChange: (items: BillItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
@@ -35,6 +36,7 @@ const BillsTable = ({ data, billsTotal, onUpdate, onChange, onRemove }
                                             ? "indeterminate"
                                             : false
                                 }
+                                disabled={!isEditing}
                                 onCheckedChange={(checked) => {
                                     data.bills.forEach(b =>
                                         onUpdate("bills", b.id, { paid: checked === true })
@@ -55,22 +57,23 @@ const BillsTable = ({ data, billsTotal, onUpdate, onChange, onRemove }
                             <TableCell>
                                 <Checkbox
                                     checked={b.paid}
+                                    disabled={!isEditing}
                                     onCheckedChange={(checked) => {
                                         onUpdate("bills", b.id, { paid: checked === true })
                                     }}
                                 />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.description} type="text" onSave={v => update(b.id, "description", v)} align="left" />
+                                <EditCell value={b.description} type="text" isEditing={isEditing} onSave={v => update(b.id, "description", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.dueDate} type="date" onSave={v => update(b.id, "dueDate", v)} align="left" />
+                                <EditCell value={b.due_date} type="date" isEditing={isEditing} onSave={v => update(b.id, "due_date", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.budget} type="number" onSave={v => update(b.id, "budget", v)} />
+                                <EditCell value={b.budget} type="number" isEditing={isEditing} onSave={v => update(b.id, "budget", v)} />
                             </TableCell>
                             <TableCell className='flex'>
-                                <EditCell value={b.actual} type="number" onSave={v => update(b.id, "actual", v)} />
+                                <EditCell value={b.actual} type="number" isEditing={isEditing} onSave={v => update(b.id, "actual", v)} />
                             </TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("bills", b.id)} />
@@ -93,9 +96,12 @@ const BillsTable = ({ data, billsTotal, onUpdate, onChange, onRemove }
                     </TableRow>
                 </TableFooter>
             </Table>
-            <AddRowBtn onClick={() =>
-                onChange([...data.bills, { id: uid(), paid: false, description: "", dueDate: "", budget: 0, actual: 0 }])
-            } />
+            <AddRowBtn
+                onClick={() =>
+                    onChange([...data.bills, { id: uid(), paid: false, description: "", due_date: "", budget: 0, actual: 0 }])
+                }
+                isEditing={isEditing}
+            />
         </div>
     )
 }

@@ -4,10 +4,11 @@ import { fmt, uid } from '@/lib/utils';
 import AddRowBtn from './add-row-button';
 import DeleteBtn from './delete-button';
 
-const SavingsTable = ({ data, savingsTotal, onChange, onRemove }
+const SavingsTable = ({ data, savingsTotal, isEditing, onChange, onRemove }
     : {
         data: BudgetData;
         savingsTotal: { budget: number, actual: number };
+        isEditing: boolean;
         onChange: (items: SavingsItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
@@ -32,9 +33,9 @@ const SavingsTable = ({ data, savingsTotal, onChange, onRemove }
                 <TableBody>
                     {data.savings.map(s => (
                         <TableRow key={s.id}>
-                            <TableCell><EditCell value={s.description} type="text" onSave={v => update(s.id, "description", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={s.budget} type="number" onSave={v => update(s.id, "budget", v)} /></TableCell>
-                            <TableCell><EditCell value={s.actual} type="number" onSave={v => update(s.id, "actual", v)} /></TableCell>
+                            <TableCell><EditCell value={s.description} type="text" isEditing={isEditing} onSave={v => update(s.id, "description", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={s.budget} type="number" isEditing={isEditing} onSave={v => update(s.id, "budget", v)} /></TableCell>
+                            <TableCell><EditCell value={s.actual} type="number" isEditing={isEditing} onSave={v => update(s.id, "actual", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("savings", s.id)} />
                             </TableCell>
@@ -56,7 +57,9 @@ const SavingsTable = ({ data, savingsTotal, onChange, onRemove }
             </Table>
             <AddRowBtn onClick={() =>
                 onChange([...data.savings, { id: uid(), description: "", budget: 0, actual: 0 }])
-            } />
+            }
+                isEditing={isEditing}
+            />
 
         </div>
     )

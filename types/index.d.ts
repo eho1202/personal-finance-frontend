@@ -131,7 +131,7 @@ declare interface IncomeItem {
 declare interface BillItem {
   id: string;
   description: string;
-  dueDate: string;
+  due_date: string;
   budget: number;
   actual: number;
   paid: boolean;
@@ -140,7 +140,7 @@ declare interface BillItem {
 declare interface DebtItem {
   id: string;
   description: string;
-  dueDate: string;
+  due_date: string;
   budget: number;
   paid: number;
 }
@@ -170,10 +170,10 @@ declare interface ExpenseBudgetsItem {
 
 declare interface BudgetData {
   currency: string;
-  startDate: string;
-  endDate: string;
-  expenseBudgets: ExpenseBudgetsItem[];
-  expenseItems: Record<string, number>,
+  start_date: string;
+  end_date: string;
+  expense_budgets: ExpenseBudgetsItem[];
+  expense_items: Record<string, number>,
   income: IncomeItem[];
   bills: BillItem[];
   debts: DebtItem[];

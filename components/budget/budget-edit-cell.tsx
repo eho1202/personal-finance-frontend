@@ -8,17 +8,19 @@ import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 
-const EditCell = ({ value, onSave, type = "text", align = "right" }:
+const EditCell = ({ value, onSave, type = "text", align = "right", isEditing = true }:
     {
-        value: string | number,
+        value: string | number | Date,
         onSave: (v: string | number) => void;
         type?: "text" | "number" | "date";
         align?: "left" | "right";
+        isEditing?: boolean;
     }
 ) => {
     const [editing, setEditing] = useState(false);
     const [draft, setDraft] = useState(String(value));
-
+    const isCurrentlyEditing = isEditing && editing;
+    
     const commit = () => {
         setEditing(false);
         onSave(type === "number" ? parseFloat(draft) || 0 : draft);
@@ -62,7 +64,7 @@ const EditCell = ({ value, onSave, type = "text", align = "right" }:
         )
     }
 
-    if (editing) {
+    if (isCurrentlyEditing) {
         return (
             <Input
                 autoFocus
@@ -87,7 +89,11 @@ const EditCell = ({ value, onSave, type = "text", align = "right" }:
         <Button
             variant="ghost"
             size="sm"
-            onClick={() => { setDraft(String(value)); setEditing(true); }}
+            onClick={() => { 
+                if (!isEditing) return;
+                setDraft(String(value)); 
+                setEditing(true);
+             }}
             title="Click to edit"
             className={cn(
                 "w-full cursor-text font-normal h-auto py-0.5 px-1",

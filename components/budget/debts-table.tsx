@@ -5,10 +5,11 @@ import AddRowBtn from './add-row-button';
 import EditCell from './budget-edit-cell';
 import DeleteBtn from './delete-button';
 
-const DebtsTable = ({ data, debtsTotal, onChange, onRemove }
+const DebtsTable = ({ data, debtsTotal, isEditing, onChange, onRemove }
     : {
         data: BudgetData;
         debtsTotal: { budget: number, paid: number };
+        isEditing: boolean;
         onChange: (items: DebtItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
@@ -34,10 +35,10 @@ const DebtsTable = ({ data, debtsTotal, onChange, onRemove }
                 <TableBody>
                     {data.debts.map(d => (
                         <TableRow key={d.id}>
-                            <TableCell><EditCell value={d.description} type="text" onSave={v => update(d.id, "description", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={d.dueDate} type="date" onSave={v => update(d.id, "dueDate", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={d.budget} type="number" onSave={v => update(d.id, "budget", v)} /></TableCell>
-                            <TableCell><EditCell value={d.paid} type="number" onSave={v => update(d.id, "paid", v)} /></TableCell>
+                            <TableCell><EditCell value={d.description} type="text" isEditing={isEditing} onSave={v => update(d.id, "description", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={d.due_date} type="date" isEditing={isEditing} onSave={v => update(d.id, "due_date", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={d.budget} type="number" isEditing={isEditing} onSave={v => update(d.id, "budget", v)} /></TableCell>
+                            <TableCell><EditCell value={d.paid} type="number" isEditing={isEditing} onSave={v => update(d.id, "paid", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("debts", d.id)} />
                             </TableCell>
@@ -58,8 +59,10 @@ const DebtsTable = ({ data, debtsTotal, onChange, onRemove }
                 </TableFooter>
             </Table>
             <AddRowBtn onClick={() =>
-                onChange([...data.debts, { id: uid(), description: "", dueDate: "", budget: 0, paid: 0 }])
-            } />
+                onChange([...data.debts, { id: uid(), description: "", due_date: "", budget: 0, paid: 0 }])
+            }
+                isEditing={isEditing}
+            />
         </div>
     )
 }

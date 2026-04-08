@@ -38,7 +38,7 @@ const BudgetOverview = ({ data, onChange }:
         },
         {
             name: "Expenses",
-            Budget: data.expenseBudgets.reduce((s, v) => s + v.budget, 0),
+            Budget: data.expense_budgets.reduce((s, v) => s + v.budget, 0),
             Actual: data.expenses.reduce((s, e) => s + e.amount, 0),
         },
     ]

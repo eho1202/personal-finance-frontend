@@ -1,8 +1,8 @@
 export const SEED_DATA: BudgetData = {
   currency: "CAD",
-  startDate: "2025-03-01",
-  endDate: "2025-03-31",
-  expenseItems: {
+  start_date: "2025-03-01",
+  end_date: "2025-03-31",
+  expense_items: {
     "Personal Care": 70,
     Travel: 150,
     Shopping: 200,
@@ -18,19 +18,19 @@ export const SEED_DATA: BudgetData = {
     { id: "i3", description: "",            expected: 0,    actual: 0 },
   ],
   bills: [
-    { id: "b1", description: "Cable & Internet", dueDate: "2025-03-01", budget: 120,  actual: 120,  paid: true  },
-    { id: "b2", description: "Car Insurance",    dueDate: "2025-03-02", budget: 180,  actual: 180,  paid: true  },
-    { id: "b3", description: "Gym membership",   dueDate: "2025-03-10", budget: 40,   actual: 40,   paid: true  },
-    { id: "b4", description: "Phone Bill",       dueDate: "2025-03-15", budget: 50,   actual: 50,   paid: false },
-    { id: "b5", description: "Rent",             dueDate: "2025-03-01", budget: 1890, actual: 1890, paid: true  },
-    { id: "b6", description: "",                 dueDate: "",           budget: 0,    actual: 0,    paid: false },
+    { id: "b1", description: "Cable & Internet", due_date: "2025-03-01", budget: 120,  actual: 120,  paid: true  },
+    { id: "b2", description: "Car Insurance",    due_date: "2025-03-02", budget: 180,  actual: 180,  paid: true  },
+    { id: "b3", description: "Gym membership",   due_date: "2025-03-10", budget: 40,   actual: 40,   paid: true  },
+    { id: "b4", description: "Phone Bill",       due_date: "2025-03-15", budget: 50,   actual: 50,   paid: false },
+    { id: "b5", description: "Rent",             due_date: "2025-03-01", budget: 1890, actual: 1890, paid: true  },
+    { id: "b6", description: "",                 due_date: "",           budget: 0,    actual: 0,    paid: false },
   ],
   debts: [
-    { id: "d1", description: "Credit Card 1", dueDate: "2025-03-01", budget: 25,  paid: 25  },
-    { id: "d2", description: "Credit Card 2", dueDate: "2025-03-02", budget: 75,  paid: 75  },
-    { id: "d3", description: "Student Loan",  dueDate: "2025-03-03", budget: 200, paid: 200 },
-    { id: "d4", description: "Personal Loan", dueDate: "2025-03-04", budget: 250, paid: 200 },
-    { id: "d5", description: "",              dueDate: "",           budget: 0,   paid: 0   },
+    { id: "d1", description: "Credit Card 1", due_date: "2025-03-01", budget: 25,  paid: 25  },
+    { id: "d2", description: "Credit Card 2", due_date: "2025-03-02", budget: 75,  paid: 75  },
+    { id: "d3", description: "Student Loan",  due_date: "2025-03-03", budget: 200, paid: 200 },
+    { id: "d4", description: "Personal Loan", due_date: "2025-03-04", budget: 250, paid: 200 },
+    { id: "d5", description: "",              due_date: "",           budget: 0,   paid: 0   },
   ],
   savings: [
     { id: "s1", description: "Emergency Fund", budget: 160, actual: 160 },
@@ -47,7 +47,7 @@ export const SEED_DATA: BudgetData = {
     { id: "e7", date: "2025-03-08", amount: 15,  description: "Movies",      category: "Entertainment" },
     { id: "e8", date: "2025-03-09", amount: 60,  description: "Gas",         category: "Transportation"},
   ],
-  expenseBudgets: [
+  expense_budgets: [
     {id: "eb1", category: "Personal Care", budget: 70, actual: 90, remaining: 70-90},
     {id: "eb2", category: "Travel", budget: 150, actual: 20, remaining: 150-20},
     {id: "eb3", category: "Shopping", budget: 100, actual: 50, remaining: 100-50},
