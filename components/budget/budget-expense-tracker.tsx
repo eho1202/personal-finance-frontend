@@ -53,7 +53,7 @@ const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
             </CardHeader>
             <div className="lg:grid lg:grid-cols-[1fr_500px] gap-4 px-4 items-start">
 
-                <ExpenseTrackerTable data={data} isEditing={isEditing} onUpdate={onUpdate} onChange={expenses => onChange({ expenses })} onRemove={onRemove} />
+                <ExpenseTrackerTable data={data} isEditing={isEditing} onUpdate={onUpdate} onChange={(expenses, expense_budgets) => onChange({ expenses, expense_budgets })} onRemove={onRemove} />
 
                 <div className="flex flex-col gap-4">
                     <Card>

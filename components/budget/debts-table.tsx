@@ -40,7 +40,7 @@ const DebtsTable = ({ data, debtsTotal, isEditing, onChange, onRemove }
                             <TableCell><EditCell value={d.budget} type="number" isEditing={isEditing} onSave={v => update(d.id, "budget", v)} /></TableCell>
                             <TableCell><EditCell value={d.paid} type="number" isEditing={isEditing} onSave={v => update(d.id, "paid", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("debts", d.id)} />
+                                <DeleteBtn onClick={() => onRemove("debts", d.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}

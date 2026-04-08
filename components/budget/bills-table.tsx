@@ -76,7 +76,7 @@ const BillsTable = ({ data, billsTotal, isEditing, onUpdate, onChange, onRemove 
                                 <EditCell value={b.actual} type="number" isEditing={isEditing} onSave={v => update(b.id, "actual", v)} />
                             </TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("bills", b.id)} />
+                                <DeleteBtn onClick={() => onRemove("bills", b.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}

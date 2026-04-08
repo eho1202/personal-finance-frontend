@@ -12,11 +12,32 @@ const ExpenseTrackerTable = ({ data, isEditing, onUpdate, onChange, onRemove }
         data: BudgetData;
         isEditing: boolean;
         onUpdate: (section: keyof BudgetData, id: string, changes: Record<string, unknown>) => void;
-        onChange: (expenses: ExpenseItem[]) => void;
+        onChange: (expenses: ExpenseItem[], expenseBudgets: ExpenseBudgetsItem[]) => void;
         onRemove: (section: keyof BudgetData, id: string) => void;
     }) => {
-    const update = (id: string, field: keyof ExpenseItem, v: string | number) =>
-        onChange(data.expenses.map(d => d.id === id ? { ...d, [field]: v } : d));
+    const update = (id: string, field: keyof ExpenseItem, v: string | number) => {
+        const updatedExpenses = data.expenses.map(d => d.id === id ? { ...d, [field]: v } : d);
+
+        if (field === "amount") {
+            // Recalculate actuals for all categories from scratch
+            const actualsByCategory: Record<string, number> = {};
+            updatedExpenses.forEach(e => {
+                if (e.category) {
+                    actualsByCategory[e.category] = (actualsByCategory[e.category] ?? 0) + Number(e.amount);
+                }
+            });
+
+            const updatedExpenseBudgets = data.expense_budgets.map(eb => ({
+                ...eb,
+                actual: actualsByCategory[eb.category] ?? 0,
+                remaining: eb.budget - (actualsByCategory[eb.category] ?? 0),
+            }));
+
+            onChange(updatedExpenses, updatedExpenseBudgets);
+        } else {
+            onChange(updatedExpenses, data.expense_budgets);
+        }
+    };
     return (
         <div className='overflow-hidden rounded-lg border mb-4'>
             <Table>
@@ -61,24 +82,24 @@ const ExpenseTrackerTable = ({ data, isEditing, onUpdate, onChange, onRemove }
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Categories</SelectLabel>
-                                            {EXPENSE_CATEGORIES.map(c => (
-                                                <SelectItem key={c} value={c}>{c}</SelectItem>
-                                            ))}
 
-                                            {/* {[...new Set(data.expenses.map(e => e.category))].map(category => (
+                                            {[...new Set(data.expense_budgets.map(e => e.category))].map(category => (
                                                 <SelectItem key={category} value={category}>{category}</SelectItem>
-                                            ))} */}
+                                            ))}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <DeleteBtn onClick={() => onRemove("expenses", e.id)} />
+                                <DeleteBtn onClick={() => onRemove("expenses", e.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
             <AddRowBtn onClick={() =>
-                onChange([...data.expenses, { id: uid(), date: "", amount: 0, description: "", category: "" }])
+                onChange(
+                    [...data.expenses, { id: uid(), date: "", amount: 0, description: "", category: "" }],
+                    data.expense_budgets
+                )
             }
                 isEditing={isEditing}
             />

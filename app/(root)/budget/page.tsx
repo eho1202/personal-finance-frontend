@@ -1,5 +1,4 @@
 import { BudgetDashboard } from "@/components/budget/budget-dashboard";
-import { SEED_DATA } from "./seed";
 
 
 export default function BudgetPage() {
@@ -7,7 +6,7 @@ export default function BudgetPage() {
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          <BudgetDashboard initialData={SEED_DATA} />
+          <BudgetDashboard />
         </div>
       </div>
     </div>

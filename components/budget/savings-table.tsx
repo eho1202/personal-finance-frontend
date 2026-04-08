@@ -37,7 +37,7 @@ const SavingsTable = ({ data, savingsTotal, isEditing, onChange, onRemove }
                             <TableCell><EditCell value={s.budget} type="number" isEditing={isEditing} onSave={v => update(s.id, "budget", v)} /></TableCell>
                             <TableCell><EditCell value={s.actual} type="number" isEditing={isEditing} onSave={v => update(s.id, "actual", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("savings", s.id)} />
+                                <DeleteBtn onClick={() => onRemove("savings", s.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}

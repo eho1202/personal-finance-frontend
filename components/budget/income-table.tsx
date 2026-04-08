@@ -38,7 +38,7 @@ const IncomeTable = ({ data, incomeTotal, isEditing, onChange, onRemove }
                             <TableCell><EditCell value={i.expected} type="number" isEditing={isEditing} onSave={v => update(i.id, "expected", v)} /></TableCell>
                             <TableCell><EditCell value={i.actual} type="number" isEditing={isEditing} onSave={v => update(i.id, "actual", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("income", i.id)} />
+                                <DeleteBtn onClick={() => onRemove("income", i.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}

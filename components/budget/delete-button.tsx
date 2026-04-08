@@ -3,12 +3,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { IconDotsVertical } from '@tabler/icons-react'
 import { Button } from '../ui/button'
 
-const DeleteBtn = ({ onClick }: { onClick: () => void; }) => {
+const DeleteBtn = ({ onClick, isEditing }: { onClick: () => void; isEditing: boolean; }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"
+                    disabled={!isEditing}
                     className="flex text-muted-foreground data-[state=open]:bg-muted"
                     size="icon"
                 >

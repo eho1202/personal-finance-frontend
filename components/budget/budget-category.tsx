@@ -18,20 +18,20 @@ const BudgetCategories = ({ data, onUpdate, onChange, onRemove, onSave }:
         onRemove: (section: keyof BudgetData, id: string) => void;
         onSave: () => Promise<void>;
     }) => {
-        const [isEditing, setIsEditing] = useState(false);
-        const [saving, setSaving] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [saving, setSaving] = useState(false);
 
-        const handleDone = async () => {
-            setSaving(true);
-            try {
-                await onSave();
-                setIsEditing(false);
-            } catch (err) {
-                console.error("Failed to save budget: ", err);
-            } finally {
-                setSaving(false);
-            }
+    const handleDone = async () => {
+        setSaving(true);
+        try {
+            await onSave();
+            setIsEditing(false);
+        } catch (err) {
+            console.error("Failed to save budget: ", err);
+        } finally {
+            setSaving(false);
         }
+    }
 
     const incomeTotal = data.income.reduce(
         (s, i) => ({ expected: s.expected + i.expected, actual: s.actual + i.actual }),
@@ -53,7 +53,13 @@ const BudgetCategories = ({ data, onUpdate, onChange, onRemove, onSave }:
     data.expense_budgets.forEach(e => {
         categoryTotals[e.category] = {
             budget: (categoryTotals[e.category]?.budget ?? 0) + e.budget,
-            actual: (categoryTotals[e.category]?.actual ?? 0) + e.actual,
+            actual: categoryTotals[e.category]?.actual ?? 0,
+        }
+    });
+    data.expenses.forEach(e => {
+        categoryTotals[e.category] = {
+            budget: categoryTotals[e.category]?.budget ?? 0,
+            actual: (categoryTotals[e.category]?.actual ?? 0) + e.amount,
         }
     });
     const expenseSummary = Object.entries(categoryTotals).map(([cat, { budget, actual }]) => ({
@@ -62,10 +68,12 @@ const BudgetCategories = ({ data, onUpdate, onChange, onRemove, onSave }:
         actual,
         remaining: budget - actual,
     }));
+    console.log(expenseSummary);
     const expenseTotal = expenseSummary.reduce(
         (s, ex) => ({ budget: s.budget + ex.budget, actual: s.actual + ex.actual }),
         { budget: 0, actual: 0 },
     )
+    console.log(expenseTotal);
 
     return (
         <Card className="w-full">

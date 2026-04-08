@@ -80,7 +80,7 @@ const ExpensesTable = ({ data, expenseTotal, isEditing, onUpdate, onChange, onRe
                                 {fmt(e.remaining)}
                             </TableCell>
                             <TableCell className="w-8 p-0">
-                                <DeleteBtn onClick={() => onRemove("expense_budgets", e.id)} />
+                                <DeleteBtn onClick={() => onRemove("expense_budgets", e.id)} isEditing={isEditing} />
                             </TableCell>
                         </TableRow>
                     ))}

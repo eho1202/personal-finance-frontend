@@ -21,7 +21,7 @@ const CashFlowTable = ({ data }: { data: BudgetData }) => {
         },
         {
             name: "Expenses",
-            budget: Object.values(data.expense_items).reduce((s, v) => s + v, 0),
+            budget: data.expense_budgets.reduce((s, v) => s + v.budget, 0),
             actual: data.expenses.reduce((s, e) => s + e.amount, 0),
         },
     ]
