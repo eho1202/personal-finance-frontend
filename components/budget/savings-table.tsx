@@ -33,9 +33,9 @@ const SavingsTable = ({ data, savingsTotal, isEditing, onChange, onRemove }
                 <TableBody>
                     {data.savings.map(s => (
                         <TableRow key={s.id}>
-                            <TableCell><EditCell value={s.description} type="text" isEditing={isEditing} onSave={v => update(s.id, "description", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={s.budget} type="number" isEditing={isEditing} onSave={v => update(s.id, "budget", v)} /></TableCell>
-                            <TableCell><EditCell value={s.actual} type="number" isEditing={isEditing} onSave={v => update(s.id, "actual", v)} /></TableCell>
+                            <TableCell><EditCell value={s.description} currency={data.currency} type="text" isEditing={isEditing} onSave={v => update(s.id, "description", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={s.budget} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(s.id, "budget", v)} /></TableCell>
+                            <TableCell><EditCell value={s.actual} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(s.id, "actual", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("savings", s.id)} isEditing={isEditing} />
                             </TableCell>
@@ -46,10 +46,10 @@ const SavingsTable = ({ data, savingsTotal, isEditing, onChange, onRemove }
                     <TableRow>
                         <TableCell>Total</TableCell>
                         <TableCell align='right'>
-                            {fmt(savingsTotal.budget)}
+                            {fmt(savingsTotal.budget, data.currency)}
                         </TableCell>
                         <TableCell align='right'>
-                            {fmt(savingsTotal.actual)}
+                            {fmt(savingsTotal.actual, data.currency)}
                         </TableCell>
                         <TableCell className="w-8" />
                     </TableRow>

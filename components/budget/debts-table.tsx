@@ -1,5 +1,5 @@
 'use client'
-import { uid } from '@/lib/utils';
+import { fmt, uid } from '@/lib/utils';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '../ui/table'
 import AddRowBtn from './add-row-button';
 import EditCell from './budget-edit-cell';
@@ -35,10 +35,10 @@ const DebtsTable = ({ data, debtsTotal, isEditing, onChange, onRemove }
                 <TableBody>
                     {data.debts.map(d => (
                         <TableRow key={d.id}>
-                            <TableCell><EditCell value={d.description} type="text" isEditing={isEditing} onSave={v => update(d.id, "description", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={d.due_date} type="date" isEditing={isEditing} onSave={v => update(d.id, "due_date", v)} align="left" /></TableCell>
-                            <TableCell><EditCell value={d.budget} type="number" isEditing={isEditing} onSave={v => update(d.id, "budget", v)} /></TableCell>
-                            <TableCell><EditCell value={d.paid} type="number" isEditing={isEditing} onSave={v => update(d.id, "paid", v)} /></TableCell>
+                            <TableCell><EditCell value={d.description} currency={data.currency} type="text" isEditing={isEditing} onSave={v => update(d.id, "description", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={d.due_date} currency={data.currency} type="date" isEditing={isEditing} onSave={v => update(d.id, "due_date", v)} align="left" /></TableCell>
+                            <TableCell><EditCell value={d.budget} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(d.id, "budget", v)} /></TableCell>
+                            <TableCell><EditCell value={d.paid} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(d.id, "paid", v)} /></TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("debts", d.id)} isEditing={isEditing} />
                             </TableCell>
@@ -49,10 +49,10 @@ const DebtsTable = ({ data, debtsTotal, isEditing, onChange, onRemove }
                     <TableRow>
                         <TableCell colSpan={2}>Total</TableCell>
                         <TableCell align='right'>
-                            ${debtsTotal.budget}
+                            {fmt(debtsTotal.budget, data.currency)}
                         </TableCell>
                         <TableCell align='right'>
-                            ${debtsTotal.paid}
+                            {fmt(debtsTotal.paid, data.currency)}
                         </TableCell>
                         <TableCell className="w-8" />
                     </TableRow>

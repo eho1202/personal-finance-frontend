@@ -65,10 +65,10 @@ const ExpensesTable = ({ data, expenseTotal, isEditing, onUpdate, onChange, onRe
                                 </Select>
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.budget} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "budget", v)} />
+                                <EditCell value={e.budget} currency={data.currency} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "budget", v)} />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.actual} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "actual", v)} />
+                                <EditCell value={e.actual} currency={data.currency} type="number" isEditing={isEditing} onSave={v => updateRow(e.id, "actual", v)} />
                             </TableCell>
                             <TableCell
                                 align="right"
@@ -77,7 +77,7 @@ const ExpensesTable = ({ data, expenseTotal, isEditing, onUpdate, onChange, onRe
                                         e.remaining > 0 ? "text-green-600 dark:text-green-800" :
                                             "text-primary"
                                 }>
-                                {fmt(e.remaining)}
+                                {fmt(e.remaining, data.currency)}
                             </TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("expense_budgets", e.id)} isEditing={isEditing} />
@@ -88,9 +88,9 @@ const ExpensesTable = ({ data, expenseTotal, isEditing, onUpdate, onChange, onRe
                 <TableFooter>
                     <TableRow>
                         <TableCell>Total</TableCell>
-                        <TableCell align="right">{fmt(expenseTotal.budget)}</TableCell>
-                        <TableCell align="right">{fmt(expenseTotal.actual)}</TableCell>
-                        <TableCell align="right">{fmt(expenseTotal.budget - expenseTotal.actual)}</TableCell>
+                        <TableCell align="right">{fmt(expenseTotal.budget, data.currency)}</TableCell>
+                        <TableCell align="right">{fmt(expenseTotal.actual, data.currency)}</TableCell>
+                        <TableCell align="right">{fmt(expenseTotal.budget - expenseTotal.actual, data.currency)}</TableCell>
                         <TableCell className="w-8" />
                     </TableRow>
                 </TableFooter>

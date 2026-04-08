@@ -33,12 +33,12 @@ const BudgetNav = ({
     const spendPct = totalIncome > 0 ? Math.round((totalSpent / totalIncome) * 100) : 0;
 
     const BUDGET_HEADERS = [
-        { label: "Budgeted", value: fmt(totalBudgeted) },
-        { label: "Left to Budget", value: fmt((expectedTotalIncome - totalBudgeted)) },
-        { label: "Income", value: fmt(totalIncome) },
-        { label: "Total Spent", value: fmt(totalSpent) },
-        { label: "Savings", value: fmt(totalSavings) },
-        { label: "Left Over", value: fmt(leftOver), danger: leftOver < 0 },
+        { label: "Budgeted", value: fmt(totalBudgeted, data.currency) },
+        { label: "Left to Budget", value: fmt(expectedTotalIncome - totalBudgeted, data.currency) },
+        { label: "Income", value: fmt(totalIncome, data.currency) },
+        { label: "Total Spent", value: fmt(totalSpent, data.currency) },
+        { label: "Savings", value: fmt(totalSavings, data.currency) },
+        { label: "Left Over", value: fmt(leftOver, data.currency), danger: leftOver < 0 },
     ];
 
     return (

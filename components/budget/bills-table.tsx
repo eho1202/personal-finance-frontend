@@ -64,16 +64,16 @@ const BillsTable = ({ data, billsTotal, isEditing, onUpdate, onChange, onRemove 
                                 />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.description} type="text" isEditing={isEditing} onSave={v => update(b.id, "description", v)} align="left" />
+                                <EditCell value={b.description} currency={data.currency} type="text" isEditing={isEditing} onSave={v => update(b.id, "description", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.due_date} type="date" isEditing={isEditing} onSave={v => update(b.id, "due_date", v)} align="left" />
+                                <EditCell value={b.due_date} currency={data.currency} type="date" isEditing={isEditing} onSave={v => update(b.id, "due_date", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={b.budget} type="number" isEditing={isEditing} onSave={v => update(b.id, "budget", v)} />
+                                <EditCell value={b.budget} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(b.id, "budget", v)} />
                             </TableCell>
                             <TableCell className='flex'>
-                                <EditCell value={b.actual} type="number" isEditing={isEditing} onSave={v => update(b.id, "actual", v)} />
+                                <EditCell value={b.actual} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(b.id, "actual", v)} />
                             </TableCell>
                             <TableCell className="w-8 p-0">
                                 <DeleteBtn onClick={() => onRemove("bills", b.id)} isEditing={isEditing} />
@@ -87,10 +87,10 @@ const BillsTable = ({ data, billsTotal, isEditing, onUpdate, onChange, onRemove 
                             Total
                         </TableCell>
                         <TableCell align="right">
-                            {fmt(billsTotal.budget)}
+                            {fmt(billsTotal.budget, data.currency)}
                         </TableCell>
                         <TableCell align="right">
-                            {fmt(billsTotal.actual)}
+                            {fmt(billsTotal.actual, data.currency)}
                         </TableCell>
                         <TableCell className="w-8" />
                     </TableRow>

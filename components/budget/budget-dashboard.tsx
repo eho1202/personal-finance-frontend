@@ -52,6 +52,17 @@ export function BudgetDashboard() {
     });
   }, []);
 
+  const onCurrencyChange = useCallback(async (partial: Partial<BudgetData>) => {
+    onChange(partial);
+    if (partial.currency && data) {
+      try {
+        await saveBudget(MONTHS[month - 1], year, {...data, ...partial });
+      } catch (err) {
+        console.error("Failed to save currency: ", err);
+      }
+    }
+  }, [month, year, data, onChange]);
+
   const navigate = (offsetMonths: number) => {
     const d = new Date(year, month - 1 + offsetMonths, 1);
     setYear(d.getFullYear());
@@ -86,7 +97,7 @@ export function BudgetDashboard() {
   return (
     <div className="flex flex-col gap-4 mx-4">
       <BudgetNav data={data} month={month} year={year} onPrev={() => navigate(-1)} onNext={() => navigate(+1)} />
-      <BudgetOverview data={data} onChange={onChange} />
+      <BudgetOverview data={data} onChange={onCurrencyChange} />
       <BudgetCategories data={data} onUpdate={onUpdate} onChange={onChange} onRemove={removeRow} onSave={onSave} />
       <BudgetExpenseCategories data={data} onUpdate={onUpdate} onChange={onChange} onRemove={removeRow} />
     </div>

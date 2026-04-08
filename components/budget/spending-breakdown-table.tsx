@@ -1,10 +1,11 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { fmt } from '@/lib/utils';
 
-const SpendingBreakdownTable = ({ pieDataWithKeys, total }
+const SpendingBreakdownTable = ({ pieDataWithKeys, total, currency }
     : {
         pieDataWithKeys: { key: string, name: string, value: number }[];
-        total:  number
+        total:  number;
+        currency: string;
     }
 ) => {
     return (
@@ -29,7 +30,7 @@ const SpendingBreakdownTable = ({ pieDataWithKeys, total }
                                 {d.name}
                             </TableCell>
                             <TableCell align="right">
-                                {fmt(d.value)}
+                                {fmt(d.value, currency)}
                             </TableCell>
                             <TableCell align="right">
                                 {((d.value / total) * 100).toFixed(1)}%

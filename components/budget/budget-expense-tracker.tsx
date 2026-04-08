@@ -81,7 +81,7 @@ const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
                         </ChartContainer>
                     </Card>
 
-                    <SpendingBreakdownTable pieDataWithKeys={pieDataWithKeys} total={total} />
+                    <SpendingBreakdownTable pieDataWithKeys={pieDataWithKeys} total={total} currency={data.currency} />
 
                 </div>
             </div>

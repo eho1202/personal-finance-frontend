@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { EXPENSE_CATEGORIES } from '@/constants'
 import { SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectLabel, SelectItem, Select } from '../ui/select'
 import AddRowBtn from './add-row-button'
 import { uid } from '@/lib/utils'
@@ -66,13 +65,13 @@ const ExpenseTrackerTable = ({ data, isEditing, onUpdate, onChange, onRemove }
                     {data.expenses.map(e => (
                         <TableRow key={e.id}>
                             <TableCell>
-                                <EditCell value={e.date} type="date" isEditing={isEditing} onSave={v => update(e.id, "date", v)} align="left" />
+                                <EditCell value={e.date} currency={data.currency} type="date" isEditing={isEditing} onSave={v => update(e.id, "date", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.amount} type="number" isEditing={isEditing} onSave={v => update(e.id, "amount", v)} align="left" />
+                                <EditCell value={e.amount} currency={data.currency} type="number" isEditing={isEditing} onSave={v => update(e.id, "amount", v)} align="left" />
                             </TableCell>
                             <TableCell>
-                                <EditCell value={e.description} type="text" isEditing={isEditing} onSave={v => update(e.id, "description", v)} align="left" />
+                                <EditCell value={e.description} currency={data.currency} type="text" isEditing={isEditing} onSave={v => update(e.id, "description", v)} align="left" />
                             </TableCell>
                             <TableCell className='flex items-center justify-between gap-2'>
                                 <Select value={e.category} onValueChange={(val) => onUpdate("expenses", e.id, { category: val })}>

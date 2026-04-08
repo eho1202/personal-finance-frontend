@@ -8,9 +8,10 @@ import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
 
-const EditCell = ({ value, onSave, type = "text", align = "right", isEditing = true }:
+const EditCell = ({ value, currency, onSave, type = "text", align = "right", isEditing = true }:
     {
         value: string | number | Date,
+        currency: string,
         onSave: (v: string | number) => void;
         type?: "text" | "number" | "date";
         align?: "left" | "right";
@@ -100,7 +101,7 @@ const EditCell = ({ value, onSave, type = "text", align = "right", isEditing = t
                 align === "right" ? "justify-end" : "justify-start"
             )}
         >
-            {type === "number" ? fmt(Number(value)) : String(value) || "-"}
+            {type === "number" ? fmt(Number(value), currency) : String(value) || "-"}
         </Button>
     )
 }

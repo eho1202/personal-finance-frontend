@@ -2,8 +2,8 @@ import { CURRENCIES } from '@/constants';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 
-const OverviewCard = ({ data, onChange }
-    : {
+const OverviewCard = ({ data, onChange }: 
+    {
         data: BudgetData;
         onChange: (partial: Partial<BudgetData>) => void;
     }) => {
@@ -26,11 +26,9 @@ const OverviewCard = ({ data, onChange }
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>
-                                        {CURRENCIES.map((c) => (
-                                            <SelectItem key={c} value={c}>{c}</SelectItem>
-                                        ))}
-                                    </SelectLabel>
+                                    {CURRENCIES.map((c) => (
+                                        <SelectItem key={c} value={c}>{c}</SelectItem>
+                                    ))}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>

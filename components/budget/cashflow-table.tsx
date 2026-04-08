@@ -45,10 +45,10 @@ const CashFlowTable = ({ data }: { data: BudgetData }) => {
                     <TableRow key={row.name}>
                         <TableCell>{row.name}</TableCell>
                         <TableCell className="text-right text-muted-foreground">
-                            {fmt(row.budget)}
+                            {fmt(row.budget, data.currency)}
                         </TableCell>
                         <TableCell className="text-right">
-                            {fmt(row.actual)}
+                            {fmt(row.actual, data.currency)}
                         </TableCell>
                     </TableRow>
                 ))}
@@ -57,10 +57,10 @@ const CashFlowTable = ({ data }: { data: BudgetData }) => {
                 <TableRow>
                     <TableCell className="text-sm">Total</TableCell>
                     <TableCell className="text-right text-sm text-muted-foreground">
-                        {fmt(totalBudget)}
+                        {fmt(totalBudget, data.currency)}
                     </TableCell>
                     <TableCell className="text-right text-sm">
-                        {fmt(totalActual)}
+                        {fmt(totalActual, data.currency)}
                     </TableCell>
                 </TableRow>
             </TableFooter>
