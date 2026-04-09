@@ -63,17 +63,21 @@ export async function getBudget(month: string, year: number) {
   return res.json();
 }
 
-export async function saveBudget(month: string, year: number, data: BudgetData) {
+export async function saveBudget(
+  month: string,
+  year: number,
+  data: BudgetData,
+) {
   const payload = {
     currency: data.currency,
     start_date: data.start_date || null,
     end_date: data.end_date || null,
     income: data.income,
-    bills: data.bills.map(b => ({
+    bills: data.bills.map((b) => ({
       ...b,
       due_date: b.due_date || null,
     })),
-    debts: data.debts.map(d => ({
+    debts: data.debts.map((d) => ({
       ...d,
       due_date: d.due_date || null,
     })),
@@ -88,11 +92,11 @@ export async function saveBudget(month: string, year: number, data: BudgetData) 
     {
       method: "PUT",
       headers: {
-        ...await getAuthHeaders(),
+        ...(await getAuthHeaders()),
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    }
+    },
   );
 
   if (!res.ok) {

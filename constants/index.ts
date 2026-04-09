@@ -143,7 +143,7 @@ export const MIME_TYPES: Record<string, string> = {
 export const PAGE_TITLES: Record<string, string> = {
   "/dashboard": "Dashboard",
   "/budget": "Budget",
-  "/analytics": "Analytics",
+  "/chatbot": "Chatbot",
   "/settings": "Settings",
 };
 

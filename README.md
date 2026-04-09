@@ -7,11 +7,12 @@ A modern personal finance dashboard built with Next.js that allows users to uplo
 - Secure Authentication
 - Responsive Design
 - Interactive Dashboard
+- Budget Tracker
 
 ## Future Additions
-- Budget Management
-  - Create and track monthly budgets
-  - Set spending limits by category
+- ~~Budget Management~~
+  - ~~Create and track monthly budgets~~
+  - ~~Set spending limits by category~~
 - AI-Powered Financial Assistant
   - Natural language chatbot for financial queries
   - RAG (Retrieval-Augmented Generation) for personalized insights

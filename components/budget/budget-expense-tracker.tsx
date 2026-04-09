@@ -43,7 +43,7 @@ const BudgetExpenseCategories = ({ data, onUpdate, onChange, onRemove }:
         <Card className="w-full">
             <CardHeader className='font-semibold'>
                 <CardTitle>Expenses Overview</CardTitle>
-                <CardDescription>{isEditing ? "Click cells to edit, add or remove rows" : "Track your monthly expenses here"}</CardDescription>
+                <CardDescription>{isEditing ? "Click cells to edit, add or remove rows" : "Track your monthly expenses here after budgeting above"}</CardDescription>
                 <CardAction>
                     <Button variant="outline" size="sm" onClick={() => setIsEditing(prev => !prev)}>
                         {isEditing ? <Check /> : <Edit />}
