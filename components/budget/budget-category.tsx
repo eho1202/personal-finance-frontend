@@ -84,7 +84,7 @@ const BudgetCategories = ({ data, onUpdate, onChange, onRemove, onSave }:
                 </CardDescription>
                 <CardAction>
                     <Button variant="outline" size="sm" onClick={() => isEditing ? handleDone() : setIsEditing(true)}>
-                        {saving ? <IconLoader className="anime-spin" /> : isEditing ? <Check /> : <Edit />}
+                        {saving ? <IconLoader className="animate-spin" /> : isEditing ? <Check /> : <Edit />}
                         <span className='hidden lg:inline'>{saving ? "Saving..." : isEditing ? "Done" : "Edit"}</span>
                     </Button>
                 </CardAction>

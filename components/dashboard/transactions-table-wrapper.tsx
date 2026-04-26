@@ -3,7 +3,7 @@ import { TransactionsTable } from "./transactions-table"
 import { columns } from "./transactions-columns"
 
 const TransactionsTableWrapper = async ({ month, year }: TransactionsTableWrapperProps) => {
-    const transactions = await getTransactionData(month, year)
+    const transactions = await getTransactionData(month, year);
 
     return (
         <TransactionsTable columns={columns} data={transactions} month={month} year={year} />

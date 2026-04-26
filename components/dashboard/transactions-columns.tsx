@@ -4,9 +4,28 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "../ui/badge"
 import { transactionCategoryStyles } from "@/constants"
 import { cn, FormatNumber } from "@/lib/utils"
+import { IconArrowsUpDown } from "@tabler/icons-react"
+import { Button } from "../ui/button"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+const SortableHeader = ({ column, label }: { column: any; label: string }) => {
+  const handleSort = () => {
+    if (column.getIsSorted() === "asc") {
+      column.toggleSorting(true)
+    } else if (column.getIsSorted() === "desc") {
+      column.clearSorting()
+    } else {
+      column.toggleSorting(false)
+    }
+  }
+
+  return (
+    <Button variant="ghost" onClick={handleSort}>
+      {label}
+      <IconArrowsUpDown />
+    </Button>
+  )
+}
+
 export const columns: ColumnDef<TransactionParams>[] = [
   {
     accessorKey: "description",
@@ -18,7 +37,7 @@ export const columns: ColumnDef<TransactionParams>[] = [
   },
   {
     accessorKey: "category",
-    header: "Category",
+    header: ({ column }) => <SortableHeader column={column} label="Category" />,
     cell: ({ row }) => {
       const { borderColor, textColor, chipBackgroundColor } = transactionCategoryStyles[row.original.category as keyof typeof transactionCategoryStyles] || transactionCategoryStyles.default;
 
@@ -27,13 +46,11 @@ export const columns: ColumnDef<TransactionParams>[] = [
           <p className={cn(textColor)}>{row.original.category}</p>
         </Badge>
       )
-    }
+    },
   },
   {
     accessorKey: "amount",
-    header: "Amount",
-    cell: ({ row }) => {
-      return (FormatNumber(row.original.amount));
-    }
+    header: ({ column }) => <SortableHeader column={column} label="Amount" />,
+    cell: ({ row }) => FormatNumber(row.original.amount),
   },
 ]

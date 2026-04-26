@@ -7,7 +7,10 @@ export const getTransactionData = async (
   try {
     const data = await getTransactions(month, year);
     return data;
-  } catch (err) {
+  } catch (err: any) {
+    if (err instanceof TypeError && err.message.includes("fetch failed")) {
+      throw new Error("Unable to reach the server. Please check your connection.")
+    }
     console.error("getTransactionData error:", err);
     return [];
   }
@@ -17,13 +20,22 @@ export const getMonthlySummaryData = async (
   month: string,
   year: number,
 ): Promise<TransactionsSummaryParams[]> => {
-  const data = await getMonthlySummary(month, year);
-  return data;
+  try {
+    const data = await getMonthlySummary(month, year);
+    return data;
+  } catch (err: any) {
+    return err;
+  }
 };
 
 export const getGPTSummaryData = async (
   month: string,
   year: number,
 ): Promise<GPTSummaryParams> => {
-  return getGPTAnalysis(month, year);
+  try {
+    const data = await getGPTAnalysis(month, year);
+    return data;
+  } catch (err: any) {
+    return err;
+  }
 };

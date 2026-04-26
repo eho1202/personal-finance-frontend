@@ -9,6 +9,7 @@ declare type TransactionParams = {
   description: string;
   amount: number;
   category: string;
+  error?: any;
 };
 
 declare type TransactionsSummaryParams = {
@@ -16,6 +17,7 @@ declare type TransactionsSummaryParams = {
   transaction_count: number;
   total_amount: number;
   avg_amount: number;
+  error?: any;
 };
 
 declare type SpendingInsights = {
@@ -37,9 +39,15 @@ declare type GPTSummaryParams = {
   year: number;
   spending_insights: SpendingInsights[];
   month_over_month: MonthOverMonthParams[];
+  error?: any;
 };
 
 declare type StepStatus = "idle" | "loading" | "success" | "error";
+
+declare type DashboardState =
+  | { status: "ok"; transactions: TransactionParams[] }
+  | { status: "not_found" }
+  | { status: "error"; message: string }
 
 declare interface NotFoundCardProps {
   month: string;
@@ -48,6 +56,7 @@ declare interface NotFoundCardProps {
 
 declare interface TransactionProps {
   data: transactionParams[];
+  error?: any;
 }
 
 declare interface TransactionsSummaryProps {

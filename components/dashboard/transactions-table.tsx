@@ -1,10 +1,12 @@
 "use client"
-
+import * as React from "react"
 import {
     ColumnDef,
+    SortingState,
     flexRender,
     getCoreRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     PaginationState,
     useReactTable,
 } from "@tanstack/react-table"
@@ -33,6 +35,7 @@ export function TransactionsTable<TData, TValue>({
     month: string;
     year: number;
 }) {
+    const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
@@ -43,8 +46,11 @@ export function TransactionsTable<TData, TValue>({
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         onPaginationChange: setPagination,
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         state: {
             pagination,
+            sorting,
         }
     })
 
@@ -87,7 +93,7 @@ export function TransactionsTable<TData, TValue>({
             >
                 <div className="overflow-hidden rounded-lg border">
                     <Table>
-                        <TableHeader className="bg-muted sticky top-0 z-10">
+                        <TableHeader className="sticky top-0 z-10">
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => {
